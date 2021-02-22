@@ -25,7 +25,25 @@ function isEven(num) {
   }
   return isEven(num - 2);
 }
+
 console.log(isEven(50));
 console.log(isEven(75));
 console.log(isEven(-1));
-console.log(Math.abs(-1));
+
+/* Write a function countBs that takes a string as its only argument and returns a number that indicates how many uppercase “B” characters there are in the string. */
+
+function countBs(yourString, yourLetter) {
+  var bs = " ";
+  for (let i = 0; i < yourString.length; i++) {
+    if (yourString[i] === yourLetter) {
+      bs += yourLetter;
+    }
+  }
+  console.log(bs);
+  console.log(`You have ${bs.length} ${yourLetter}'s in this string!`);
+}
+
+countBs(
+  "This is the String with some big Bs and some smaller bs but mostly BIG Bs",
+  "s"
+);
