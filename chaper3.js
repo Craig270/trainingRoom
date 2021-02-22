@@ -1,5 +1,3 @@
-Chaper 3 
-
 "use strict";
 
 /*Minimum
