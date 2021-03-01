@@ -1,49 +1,164 @@
 "use strict";
-
-/*Minimum
-The previous chapter introduced the standard function Math.min that returns its smallest argument. We can build something like that now. Write a function min that takes two arguments and returns their minimum. */
-
-function findTheMin(num1, num2) {
-  return Math.min(num1, num2);
+//Factory Function
+/*
+function createCircle(radius) {
+  return {
+    radius,
+    draw: function () {
+      console.log("draw");
+    },
+  };
 }
 
-console.log(findTheMin(10, 1));
+const circle = createCircle(1);
 
-/*Define a recursive function isEven corresponding to this description. The function should accept a single parameter (a positive, whole number) and return a Boolean.
+//Constructor Function
+function Circle(radius) {
+  this.radius = radius;
+  this.draw = function () {
+    console.log("draw");
+  };
+}
+const another = new Circle(1);
+*/
 
-Test it on 50 and 75. See how it behaves on -1. Why? Can you think of a way to fix this?*/
+class Player {
+  constructor(name, position) {
+    this.name = name;
+    this.position = position;
+  }
 
-function isEven(num) {
-  if (num < 0) {
-    num = Math.abs(num);
+  describe() {
+    return `${this.name} players ${this.position}`;
   }
-  if (num === 0) {
-    return true;
-  }
-  if (num === 1) {
-    return false;
-  }
-  return isEven(num - 2);
 }
 
-console.log(isEven(50));
-console.log(isEven(75));
-console.log(isEven(-1));
+class Team {
+  constructor(name) {
+    this.name = name;
+    this.players = [];
+  }
 
-/* Write a function countBs that takes a string as its only argument and returns a number that indicates how many uppercase “B” characters there are in the string. */
-
-function countBs(yourString, yourLetter) {
-  var bs = " ";
-  for (let i = 0; i < yourString.length; i++) {
-    if (yourString[i] === yourLetter) {
-      bs += yourLetter;
+  addPlayer(player) {
+    if (player instanceof Player) {
+      this.players.push(player);
+    } else {
+      throw new Error(
+        `You can only add instance of Player. Argument is not a player: ${player}`
+      );
     }
   }
-  console.log(bs);
-  console.log(`You have ${bs.length} ${yourLetter}'s in this string!`);
+  describe() {
+    return `${this.name} has ${this.players.length} players.`;
+  }
 }
 
-countBs(
-  "This is the String with some big Bs and some smaller bs but mostly BIG Bs",
-  "s"
-);
+class Menu {
+  constructor() {
+    this.teams = []; //onSalesFloorShelves
+    this.selectedTeam = null; //currentSelection
+  }
+  start() {
+    let selection = this.showMainMenuOptions();
+    while (selection != 0) {
+      switch (selection) {
+        case "1":
+          this.createTeam();
+          break;
+        case "2":
+          this.viewTeam();
+          break;
+        case "3":
+          this.deleteTeam();
+          break;
+        case "4":
+          this.displayTeams();
+          break;
+        default:
+          selection = 0;
+      }
+      selection = this.showMainMenuOptions();
+    }
+    alert(`Goodbye!`);
+  }
+  showMainMenuOptions() {
+    return prompt(`
+          0) exit
+          1) create new team
+          2) view team
+          3) delete team
+          4) display all teams
+        `);
+  }
+
+  showTeamMenuOptions(teamInfo) {
+    return prompt(`
+    0) back
+    1) create player
+    2) delete player
+    ---------------------
+    ${teamInfo}`);
+  }
+
+  createTeam() {
+    let name = prompt(`Enter name for new team`);
+    this.teams.push(new Team(name));
+  }
+
+  viewTeam() {
+    let index = prompt("Enter the index of the team you wish to view");
+    if (index > -1 && index < this.teams.length) {
+      this.selectedTeam = this.teams[index];
+      let description = `Team Name: ${this.selectedTeam.name} 
+        `;
+      for (let i = 0; i < this.selectedTeam.players.length; i++) {
+        description +=
+          i +
+          ") " +
+          this.selectedTeam.players[i].name +
+          " - " +
+          this.selectedTeam.players[i].position +
+          "\n";
+      }
+      let selection = this.showTeamMenuOptions(description);
+      switch (selection) {
+        case "1":
+          this.createPlayer();
+          break;
+        case "2":
+          this.deletPlayer();
+      }
+    }
+  }
+
+  deleteTeam() {
+    let index = prompt(`Enter the index of the team you wish to delete`);
+    if (index > -1 && index < this.teams.length) {
+      this.teams.splice(index, 1);
+    }
+  }
+
+  displayTeams() {
+    let teamString = "";
+    for (let i = 0; i < this.teams.length; i++) {
+      teamString += i + ") " + this.teams[i].name + " \n";
+    }
+    alert(teamString);
+  }
+
+  createPlayer() {
+    let name = prompt(`Enter name for new player:`);
+    let position = prompt(`Enter position for new player:`);
+    this.selectedTeam.players.push(new Player(name, position));
+  }
+
+  deletPlayer() {
+    let index = prompt("Enter the index of the player you wish to delete:");
+    if (index > -1 && index < this.selectedTeam.players.length) {
+      this.selectedTeam.players.splice(index, 1);
+    }
+  }
+}
+
+let menu = new Menu();
+menu.start();
