@@ -1,52 +1,4 @@
 "use strict";
-/*
-let sealedDeck = [
-  ["Two", 2], //0
-  ["Three", 3], //1
-  ["Four", 4], //2
-  ["Five", 5], //3
-  ["Six", 6], //4
-  ["Seven", 7], //5
-  ["Eight", 8], //6
-  ["Nine", 9], //7
-  ["Ten", 10], //8
-  ["Jack", 11], //9
-  ["Queen", 12], //10
-  ["King", 13], //11
-  ["Ace", 14], //12
-];
-
-let suits = [`Hearts`, `Diamonds`, `Spades`, `Clubs`];
-let ranks = [
-  `2 of `,
-  `3 of `,
-  `4 of `,
-  `5 of `,
-  `6 of `,
-  `7 of `,
-  `8 of `,
-  `9 of `,
-  `10 of `,
-  `Jack of `,
-  `Queen of `,
-  `King of `,
-  `Ace of `,
-];
-
-let ranksNum = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-
-let newDeck = [];
-for (let i = 0; i < suits.length; i++) {
-  for (let j = 0; j < ranks.length; j++) {
-    newDeck.push(ranks[j] + suits[i]);
-  }
-}
-console.log(newDeck);
-
-function mrFlip(a, b) {
-  return b, a;
-}
-*/
 
 class Card {
   constructor(suit, rank, value) {
@@ -111,50 +63,55 @@ class Deck extends Card {
   }
 }
 
-///Make new decks
-let hotelDeck = new Deck();
-hotelDeck.makeAdeck();
-console.log(hotelDeck.newDeck);
-hotelDeck.shuffle(hotelDeck.newDeck);
-hotelDeck.newDeck[0].describe();
-console.log(hotelDeck.newDeck[1]);
-console.log(hotelDeck.newDeck[1].value);
-console.log(hotelDeck.newDeck[0].value);
-let myDeck = new Deck();
-myDeck.makeAdeck();
-console.log(myDeck.newDeck);
-myDeck.shuffle(myDeck.newDeck);
-console.log(myDeck.newDeck[0]);
-console.log(myDeck.newDeck[1]);
-console.log(myDeck.newDeck[1].value);
-console.log(myDeck.newDeck[0].value);
-
-let hotelScore = 0;
-let myDeckScore = 0;
-
-console.log(`The Score:
---------------
-Hotel Deck:${hotelScore}
-myDeck:${myDeckScore}
-`);
-if (hotelDeck.newDeck[1].value > myDeck.newDeck[1].value) {
-  hotelScore += 1;
-  console.log(`Congrats! Hotel Deck Won!`);
-} else if (hotelDeck.newDeck[1].value < myDeck.newDeck[1].value) {
-  myDeckScore += 1;
-  console.log(`Congrats! myDeck Deck Won!`);
-} else if (hotelDeck.newDeck[1].value == myDeck.newDeck[1].value) {
-  console.log(`This battle of war was a tie! No player got a point!`);
+class Player extends Deck {
+  constructor(name) {
+    super();
+    this.name = name;
+    this.hand = []; //eq1mpty array for players current held cards
+    //properties of player
+  }
 }
+//make 2 new players
+let craig = new Player(`Craig`);
+let jennifer = new Player(`Jennifer`);
+//console log player objs.
+console.log(craig);
+console.log(jennifer);
+console.log(craig.name);
+console.log(jennifer.name);
+///Make new decks
+let startWarDeck1 = new Deck();
+startWarDeck1.makeAdeck();
+console.log(startWarDeck1.newDeck);
+startWarDeck1.shuffle(startWarDeck1.newDeck);
 
-console.log(`The Score:
---------------
-Hotel Deck:${hotelScore}
-myDeck:${myDeckScore}
-`);
+////Score Keeper mock up
+// let hotelScore = 0;
+// let myDeckScore = 0;
 
-function isSameNum(num1, num2) {
-  if (num1 == num2) {
-    return true;
-  } else return flase;
+// console.log(`The Score:
+// --------------
+// Hotel Deck:${hotelScore}
+// myDeck:${myDeckScore}
+// `);
+// if (hotelDeck.newDeck[1].value > myDeck.newDeck[1].value) {
+//   hotelScore += 1;
+//   console.log(`Congrats! Hotel Deck Won!`);
+// } else if (hotelDeck.newDeck[1].value < myDeck.newDeck[1].value) {
+//   myDeckScore += 1;
+//   console.log(`Congrats! myDeck Deck Won!`);
+// } else if (hotelDeck.newDeck[1].value == myDeck.newDeck[1].value) {
+//   console.log(`This battle of war was a tie! No player got a point!`);
+// }
+
+// console.log(`The Score:
+// --------------
+// Hotel Deck:${hotelScore}
+// myDeck:${myDeckScore}
+// `);
+
+function startWar() {
+  let startWarDeck = new Deck();
+  startWarDeck.makeAdeck();
+  startWarDeck.shuffle(startWarDeck.newDeck);
 }
