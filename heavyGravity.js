@@ -1,23 +1,36 @@
 "use strict";
 
-class EventOrganizer extends Event {
-  constructor() {
-    this.events = [];
-  }
-  addNewEvent(event, date) {
-    if (event in this.title) {
-      throw new Error(
-        `You can only add that are not already in ${this.events}`
-      );
-    } else {
-      this.events.push(new Event(title, date));
-    }
-  }
-  removeEvent(eventTitleString) {
-    for (let i = 0; i < this.events.length; i++) {
-      if (eventTitleString == this.events[i]) {
-        splice(this.events[i], 1);
-      }
+
+///first go at it 
+
+makeAdeck() {
+  for (let i = 0; i < this.suits.length; i++) {
+    for (let j = 0; j < this.ranks.length; j++) {
+      this.newDeck.push(this.ranks[j] + this.suits[i]);
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+///my go at it second time
+makeAdeck() {
+  for (let i = 0; i < this.suits.length; i++) {
+    for (let j = 0; j < this.ranks.length; j++) {
+      this.newDeck.push(
+        new Card(this.suits[i], this.ranks[j], this.value[j])
+      );
+    }
+  }
+}   
+
+
+
