@@ -1,5 +1,5 @@
 "use strict";
-
+/*
 class Card {
   constructor(suit, rank, value) {
     this.rank = rank;
@@ -201,3 +201,67 @@ class Menu extends Player {
 
 let startThis = new Menu();
 startThis.startApp();
+*/
+
+class Card {
+  constructor(suit, value, number) {
+    this.suit = suit;
+    this.value = value;
+    this.number = number;
+  }
+}
+
+class Deck extends Card {
+  constructor() {
+    super();
+    this.suits = ["Spades", "Clubs", "Diamonds", "Hearts"];
+    this.values = [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "J",
+      "Q",
+      "K",
+      "A",
+    ];
+    this.number = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+    this.gameDeck = [];
+  }
+  newDeck() {
+    for (let i = 0; i < this.suits.length; i++) {
+      for (let j = 0; j < this.values.length; j++) {
+        this.gameDeck.push(
+          new Card(this.suits[i], this.values[j], this.number[j])
+        );
+      }
+    }
+  }
+  // potential interview question
+  shuffle(arr) {
+    let newPos, temp;
+
+    for (let i = arr.length - 1; i > 0; i--) {
+      netPos = Math.floor(math.random() * (i + 1));
+      temp = arr[i];
+      arr[i] = arr[newPos];
+      arr[newPos] = temp;
+    }
+    return arr;
+  }
+}
+
+// let testcard = new Card(suits[0],values[0],number[12])
+// console.log(testcard);
+// console.log(testcard.number)
+
+let casinoDeck = new Deck();
+casinoDeck.newDeck();
+console.log(casinoDeck);
+console.log(casinoDeck.gameDeck);
+casinoDeck.gameDeck.shuffle(casinoDeck.gameDeck);
